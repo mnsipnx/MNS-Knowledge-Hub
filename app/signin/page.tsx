@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
+import ExpiredNotice from "@/components/ExpiredNotice";
 import LogoPlaceholder from "@/components/LogoPlaceholder";
 import SignInForm from "@/components/SignInForm";
 import UtilityBar from "@/components/UtilityBar";
@@ -23,6 +25,9 @@ export default function SignInPage() {
         </Link>
       </header>
       <main className="px-4">
+        <Suspense fallback={null}>
+          <ExpiredNotice />
+        </Suspense>
         <SignInForm />
       </main>
     </>

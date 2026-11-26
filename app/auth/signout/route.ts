@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { logEvent } from "@/lib/audit";
+import { IDLE_COOKIE } from "@/lib/idle";
 
 export async function POST(request: NextRequest) {
   const supabase = await createClient();
@@ -9,5 +10,7 @@ export async function POST(request: NextRequest) {
     await logEvent("sign_out", { userId: data.user.id, email: data.user.email });
   }
   await supabase.auth.signOut();
-  return NextResponse.redirect(new URL("/", request.url), { status: 303 });
+  const res = NextResponse.redirect(new URL("/", request.url), { status: 303 });
+  res.cookies.delete(IDLE_COOKIE);
+  return res;
 }

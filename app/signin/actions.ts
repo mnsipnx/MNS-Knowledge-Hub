@@ -1,9 +1,11 @@
 "use server";
 
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { logEvent } from "@/lib/audit";
 import { homeFor, type Role } from "@/lib/roles";
+import { IDLE_COOKIE, idleCookieOptions, makeStamp } from "@/lib/idle";
 
 const EMAIL = /^\S+@\S+\.\S+$/;
 
@@ -67,5 +69,9 @@ export async function verifyCode(
     email: e,
     detail: { role: profile.role },
   });
+  // Start the 30-minute idle clock.
+  const jar = await cookies();
+  jar.set(IDLE_COOKIE, await makeStamp(), idleCookieOptions);
+
   redirect(homeFor(profile.role as Role));
 }

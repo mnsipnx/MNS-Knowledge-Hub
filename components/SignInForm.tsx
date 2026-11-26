@@ -35,7 +35,7 @@ export default function SignInForm() {
   }
 
   return (
-    <div className="mx-auto mt-16 w-full max-w-[380px] rounded-[14px] border border-border bg-white p-8 shadow-[0_1px_1.5px_rgba(0,0,0,0.06)]">
+    <div className="mx-auto mt-6 w-full max-w-[380px] rounded-[14px] border border-border bg-white p-8 shadow-[0_1px_1.5px_rgba(0,0,0,0.06)]">
       <h1 className="font-heading text-[28px] font-bold text-ink">Sign in</h1>
 
       {step === "email" ? (

@@ -6,6 +6,7 @@ type Event =
   | "sign_in"
   | "sign_in_failed"
   | "sign_out"
+  | "session_expired"
   | "access_denied";
 
 // Writes one line to the audit log. Never throws: a logging problem
